@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//int* Dijkstra(int G[][5], int start);
+void Floyd(int G[][5], int C[][5]);
+void initGraph(int G[][5]);
+void Vertex(int G[][5]);
+void printMatrix(int G[][5]);
+int main() {
+	int Graph[5][5];
+	int Graeph[5][5];
+	initGraph(Graph);
+	printMatrix(Graph);
+	Vertex(Graph);
+	printf("\n");
+	printMatrix(Graph);
+	Floyd(Graph, Graeph);
+	printf("\n\n");
+	printMatrix(Graeph);
+	return 0;
+}
+
+void initGraph(int G[][5]) {
+//	int** tate;
+	int x,y;
+	for(x = 0; x < 5; x++) {
+		for(y = 0; y < 5; y++) {
+			G[x][y] = 6900;
+		}
+	}
+}
+
+void printMatrix(int G[][5]) {
+	int x, y;
+	for(x = 0; x < 5;x++) {
+		for(y = 0; y < 5; y++) {
+			if(G[x][y] == 6900) {
+				printf("%-5c", 236);
+			}else {
+			printf("%-5d",G[x][y]);
+			}
+		}
+		printf("\n");
+	}
+}
+
+void Vertex(int G[][5]) {
+	G[0][2] = 2;
+	G[3][1] = 3;
+	G[2][0] = 12;
+	G[3][2] = 10;
+	G[4][3] = 1;
+	G[4][1] = 3;
+	G[1][2] = 1;
+	G[2][4] = 4;
+	G[1][4] = 2;
+	int x;
+	for(x = 0; x < 5; x++) {
+		G[x][x] = 0;
+	}
+}
+
+
+void Floyd(int G[][5], int C[][5]) { //C is for copying all the values in G
+	int x, y, k;
+	for(x = 0; x < 5; x++) {
+		for(y = 0; y < 5; y++) {
+			C[x][y] = G[x][y];
+		}
+	}
+	
+	for(x = 0; x < 5; x++) {
+		C[x][x] = 0;
+	}
+	
+	for(x = 0; x < 5; x++) {
+		for(y = 0; y < 5; y++) {
+			for(k = 0; k < 5; k++) {
+				if(C[y][x] + C[x][k] < C[y][k]) {
+					C[y][k] = C[y][x] + C[x][k];
+				}
+			}
+		}
+	}
+}
