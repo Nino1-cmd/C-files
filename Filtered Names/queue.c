@@ -6,12 +6,6 @@
 
 #define MAX 8
 
-Name createName(char fName[], char lName[]){
-    Name n;
-    strcpy(n.fName, fName);
-    strcpy(n.lName, lName);
-    return n;
-}
 
 void initNQueue(NQueue *nq){
     nq->head = 1;
