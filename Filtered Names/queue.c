@@ -42,20 +42,20 @@ void displayQueue2(NQueue nq){
     NQueue temp;
     initNQueue(&temp);
     
-    int i = nq.head;
+    int x = nq.head;
     int tempTail = temp.head;
     
-    for(; i != (nq.tail + 1) % MAX; i = (i + 1) % MAX){
-        printf("%s, %s\n", nq.elems[i].lName, nq.elems[i].fName);
+    for(; x != (nq.tail + 1) % MAX; x = (x + 1) % MAX){
+        printf("%s, %s\n", nq.elems[x].lName, nq.elems[x].fName);
         temp.elems[tempTail] = nq.elems[i];
         tempTail = (tempTail + 1) % MAX;
     }
 
     temp.tail = (tempTail - 1 + MAX) % MAX;
 
-    i = temp.head;
+    x = temp.head;
     tempTail = nq.head;
-    for(; i != (temp.tail + 1) % MAX; i = (i + 1) % MAX){
+    for(; x != (temp.tail + 1) % MAX; x = (x + 1) % MAX){
         nq.elems[tempTail] = temp.elems[i];
         tempTail = (tempTail + 1) % MAX;
     }
@@ -99,19 +99,20 @@ int countElem(NQueue nq){
   fname and lname. If there are no names that will match then the
   function should return the sentinel.*/
 Name *filterNames(NQueue *nq, char *filterString){
-    int count = 0;
+    int x, count = 0;
     int size = countElem(*nq);
     NQueue temp;
     initNQueue(temp); 
     Name *nameList = (Name*)malloc(sizeof(Name)*size+1);
     
-    while(nq.head == (nq.tail + 1) % MAX) {
-        Name Filter = front(*nq); // getting the front value of the stack
-            if(strcmp(filter.lName, filterString) == 0){ //check for similarities
-                nameList[count++] = filter; //collect the value
-                dequeue(nq);
+
+    for(x = nq.head; x == (nq.tail+1)% MAX;) {
+            Name val = front(*nq);
+            if(val.lName, fillterString) == 0){
+                nameList[count++] = val; //collect the value
+                 dequeue(nq);
             }else {
-                enqueue(&temp, filter);
+                enqueue(&temp, val);
                 dequeue(nq);
             }
     }
@@ -122,8 +123,8 @@ Name *filterNames(NQueue *nq, char *filterString){
     nameList = (Name*)realloc(nameList,count*sizeof(Name));//updates size for sentinel values
     
     while(nq.head == (nq.tail + 1) % MAX) {
-        Name n = front(temp);
-        enqueue(nq, n);
+        Name p = front(temp);
+        enqueue(nq, p);
         dequeue(&temp);
     }
     return nameList;
