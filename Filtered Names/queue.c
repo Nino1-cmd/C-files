@@ -135,36 +135,37 @@ void displayNames(Name nameArray[]){
 /*Insert sorted base on lastname. Remember to use the property 
   of the queue but without using the functions (enqueue, dequeue, front)*/
 bool insertSorted(NQueue *nq, Name n){
-    if(isFull(*nq)){
-        return false;
-    }
-    
+
+if(isFull(*nq)){
+    return false;
+}
     NQueue temp;
     initNQueue(&temp);
     
-    int i = nq->head;
+    int x = nq->head;
     int tempTail = temp.head;
     
-    for(; i != (nq->tail + 1) % MAX && strcmp(nq->elems[i].lName, n.lName) < 0; i = (i + 1) % MAX){
-        temp.elems[tempTail] = nq->elems[i];
+    for(; x != (nq->tail + 1) % MAX && strcmp(nq->elems[x].lName, n.lName) < 0; x = (x + 1) % MAX){
+        temp.elems[tempTail] = nq->elems[x];
         tempTail = (tempTail + 1) % MAX;
     }
     
     temp.elems[tempTail] = n;
     tempTail = (tempTail + 1) % MAX;
     
-    while (i != (nq->tail + 1) % MAX) {
-        temp.elems[tempTail] = nq->elems[i];
+    while (x != (nq->tail + 1) % MAX) {
+        temp.elems[tempTail] = nq->elems[x];
         tempTail = (tempTail + 1) % MAX;
-        i = (i + 1) % MAX;
+        x = (x + 1) % MAX;
     }
 
     temp.tail = (tempTail - 1 + MAX) % MAX;
 
     nq->head = temp.head;
     nq->tail = temp.tail;
-    for (int j = temp.head; j != (temp.tail + 1) % MAX; j = (j + 1) % MAX) {
-        nq->elems[j] = temp.elems[j];
+    int y;
+    for (y = temp.head; y != (temp.tail + 1) % MAX; y = (y + 1) % MAX) {
+        nq->elems[y] = temp.elems[y];
     }
     return true;
 }
